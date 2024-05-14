@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.quizz.databinding.FragmentCategoryBinding
 
@@ -13,7 +14,8 @@ import com.example.quizz.databinding.FragmentCategoryBinding
  */
 class CategoryFragment : Fragment() {
 
-private var _binding: FragmentCategoryBinding? = null
+    private var _binding: FragmentCategoryBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -23,8 +25,8 @@ private var _binding: FragmentCategoryBinding? = null
         savedInstanceState: Bundle?
     ): View {
 
-      _binding = FragmentCategoryBinding.inflate(inflater, container, false)
-      return binding.root
+        _binding = FragmentCategoryBinding.inflate(inflater, container, false)
+        return binding.root
 
     }
 
@@ -34,10 +36,38 @@ private var _binding: FragmentCategoryBinding? = null
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+
+        binding.buttonCultureGenerale.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_FirstFragment_to_SecondFragment,createBundle("generalCulture"));
+        }
+
+        binding.buttonCinema.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_FirstFragment_to_SecondFragment,createBundle("cinema"));
+        }
+
+        binding.buttonLitterature.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_FirstFragment_to_SecondFragment,createBundle("literature"));
+        }
+
+        binding.buttonVideoGames.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_FirstFragment_to_SecondFragment,createBundle("videoGames"));
+        }
     }
 
-override fun onDestroyView() {
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun createBundle(theme: String) : Bundle
+    {
+        val bundle = Bundle().apply {
+            putString("info", theme)
+        }
+        return bundle;
     }
 }
