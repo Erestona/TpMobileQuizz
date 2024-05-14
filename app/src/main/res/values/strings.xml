@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Quizz</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
+    <string name="category_fragment_label">Category Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
@@ -48,5 +48,7 @@
     <string name="pseudo">Votre pseudo</string>
     <string name="validate">Valider</string>
     <string name="descriptionLogo">theLogo</string>
+    <string name="welcome_to_quiz">Bienvenue</string>
+    <string name="choose_category">Choisi une catégorie</string>
 
 </resources>
