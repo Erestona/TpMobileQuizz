@@ -45,22 +45,22 @@ class CategoryFragment : Fragment() {
 
         binding.buttonCultureGenerale.setOnClickListener {
             findNavController().navigate(
-                R.id.action_FirstFragment_to_SecondFragment,createBundle("generalCulture"));
+                R.id.action_CategoryFragment_to_SecondFragment,createBundle("generalCulture"));
         }
 
         binding.buttonCinema.setOnClickListener {
             findNavController().navigate(
-                R.id.action_FirstFragment_to_SecondFragment,createBundle("cinema"));
+                R.id.action_CategoryFragment_to_SecondFragment,createBundle("cinema"));
         }
 
         binding.buttonLitterature.setOnClickListener {
             findNavController().navigate(
-                R.id.action_FirstFragment_to_SecondFragment,createBundle("literature"));
+                R.id.action_CategoryFragment_to_SecondFragment,createBundle("literature"));
         }
 
         binding.buttonVideoGames.setOnClickListener {
             findNavController().navigate(
-                R.id.action_FirstFragment_to_SecondFragment,createBundle("videoGames"));
+                R.id.action_CategoryFragment_to_SecondFragment,createBundle("videoGames"));
         }
     }
 
