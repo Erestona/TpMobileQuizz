@@ -10,15 +10,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.quizz.databinding.ActivityGameBinding
 
 class GameActivity : AppCompatActivity() {
-
     private lateinit var appBarConfiguration: AppBarConfiguration
-private lateinit var binding: ActivityGameBinding
+    private lateinit var binding: ActivityGameBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-     binding = ActivityGameBinding.inflate(layoutInflater)
-     setContentView(binding.root)
+        binding = ActivityGameBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
 
@@ -28,14 +27,14 @@ private lateinit var binding: ActivityGameBinding
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null)
-                    .setAnchorView(R.id.fab).show()
+                .setAction("Action", null)
+                .setAnchorView(R.id.fab).show()
         }
     }
 
     override fun onSupportNavigateUp(): Boolean {
-    val navController = findNavController(R.id.nav_host_fragment_content_game)
-    return navController.navigateUp(appBarConfiguration)
-            || super.onSupportNavigateUp()
+        val navController = findNavController(R.id.nav_host_fragment_content_game)
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
     }
 }
