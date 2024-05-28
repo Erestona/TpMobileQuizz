@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -38,35 +39,9 @@ class CategoryFragment : Fragment() {
         val playerName = view.findViewById<TextView>(R.id.player_name)
         playerName.text = activity?.intent?.getStringExtra("username") ?: ""
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_CategoryFragment_to_QuestionFragment)
-        }
-
-        binding.buttonCultureGenerale.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_CategoryFragment_to_QuestionFragment,createBundle("generalCulture"));
-        }
-
-        binding.buttonCinema.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_CategoryFragment_to_QuestionFragment,createBundle("cinema"));
-        }
-
-        binding.buttonLitterature.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_CategoryFragment_to_QuestionFragment,createBundle("literature"));
-        }
-
-        binding.buttonVideoGames.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_CategoryFragment_to_QuestionFragment,createBundle("videoGames"));
-        }
-
         lifecycleScope.launch {
             val categories = database.categoryDao().getAllCategories()
-            categories.forEach { category ->
-                println("Category: ${category.name}")
-            }
+            createCategoryButtons(categories)
         }
     }
 
@@ -75,10 +50,24 @@ class CategoryFragment : Fragment() {
         _binding = null
     }
 
-    private fun createBundle(theme: String) : Bundle
+    private fun createCategoryButtons(categories: List<Category>) {
+        binding.categoryButtons.removeAllViews() // Clear any existing buttons
+        for (category in categories) {
+            val button = Button(requireContext())
+            button.text = category.name
+            button.setOnClickListener {
+                // Handle button click for this category
+                val bundle = createBundle(category.id)
+                findNavController().navigate(R.id.action_CategoryFragment_to_QuestionFragment, bundle)
+            }
+            binding.categoryButtons.addView(button)
+        }
+    }
+
+    private fun createBundle(id: Int) : Bundle
     {
         val bundle = Bundle().apply {
-            putString("info", theme)
+            putInt("categoryId", id)
         }
         return bundle;
     }
