@@ -20,6 +20,11 @@ class QuestionFragment : Fragment() {
     private var _binding: FragmentQuestionBinding? = null
     private val binding get() = _binding!!
     private lateinit var database: AppDatabase
+    private var currentPageIndex = 0
+
+    companion object {
+        private const val QUESTIONS_PER_PAGE = 1
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,14 +41,31 @@ class QuestionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_QuestionFragment_to_CategoryFragment)
+            if (currentPageIndex > 0) {
+                currentPageIndex--
+                lifecycleScope.launch {
+                    displayCurrentPageQuestions(
+                        database.questionDao()
+                            .getQuestionsByCategory(arguments?.getInt("categoryId")!!)
+                    )
+                }
+            } else {
+                findNavController().navigateUp()
+            }
         }
 
         val categoryId = arguments?.getInt("categoryId") ?: return
 
         lifecycleScope.launch {
             val questions = database.questionDao().getQuestionsByCategory(categoryId)
-            displayQuestionsAndAnswers(questions)
+            displayCurrentPageQuestions(questions)
+
+            binding.nextButton.setOnClickListener {
+                currentPageIndex++
+                lifecycleScope.launch {
+                    displayCurrentPageQuestions(questions)
+                }
+            }
         }
     }
 
@@ -52,19 +74,21 @@ class QuestionFragment : Fragment() {
         _binding = null
     }
 
-    private suspend fun displayQuestionsAndAnswers(questions: List<Question>) {
-        // Clear any existing views
+    private suspend fun displayCurrentPageQuestions(questions: List<Question>) {
         binding.questionContainer.removeAllViews()
 
-        for (question in questions) {
-            // Create and add a TextView for the question
+        val startIndex = currentPageIndex * QUESTIONS_PER_PAGE
+        val endIndex = minOf(startIndex + QUESTIONS_PER_PAGE, questions.size)
+
+        for (i in startIndex until endIndex) {
+            val question = questions[i]
+
             val questionTextView = TextView(requireContext()).apply {
                 text = question.text
                 textSize = 18f
             }
             binding.questionContainer.addView(questionTextView)
 
-            // Fetch and display answers for each question
             val answers = database.answersDao().getAnswersByQuestionId(question.id)
             for (answer in answers) {
                 val answerButton = Button(requireContext()).apply {
@@ -76,5 +100,7 @@ class QuestionFragment : Fragment() {
                 binding.questionContainer.addView(answerButton)
             }
         }
+
+        binding.nextButton.visibility = if (endIndex < questions.size) View.VISIBLE else View.GONE
     }
 }
