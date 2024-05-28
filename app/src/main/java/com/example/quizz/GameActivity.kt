@@ -8,16 +8,21 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.quizz.databinding.ActivityGameBinding
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class GameActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityGameBinding
+    private lateinit var database: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        database = (application as QuizApplication).database
 
         setSupportActionBar(binding.toolbar)
 
@@ -29,6 +34,13 @@ class GameActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .setAnchorView(R.id.fab).show()
+        }
+
+        lifecycleScope.launch {
+            val categories = database.categoryDao().getAllCategories()
+            categories.forEach { category ->
+                println("Category: ${category.name}")
+            }
         }
     }
 

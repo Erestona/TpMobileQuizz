@@ -9,20 +9,20 @@
         android:id="@+id/CategoryFragment"
         android:name="com.example.quizz.CategoryFragment"
         android:label="@string/category_fragment_label"
-        tools:layout="@layout/fragment_category" >
+        tools:layout="@layout/fragment_category">
 
         <action
-            android:id="@+id/action_CategoryFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_CategoryFragment_to_QuestionFragment"
+            app:destination="@id/QuestionFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.quizz.SecondFragment"
+        android:id="@+id/QuestionFragment"
+        android:name="com.example.quizz.QuestionFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second" >
+        tools:layout="@layout/fragment_question">
 
         <action
-            android:id="@+id/action_SecondFragment_to_CategoryFragment"
+            android:id="@+id/action_QuestionFragment_to_CategoryFragment"
             app:destination="@id/CategoryFragment" />
     </fragment>
 </navigation>
