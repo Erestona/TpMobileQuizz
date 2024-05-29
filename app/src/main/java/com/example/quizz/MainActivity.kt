@@ -38,11 +38,20 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
             val editor = sharedPreferences.edit()
-            editor.putString("username", username)
+            editor.putString("username",  editTextUsername.text.toString())
             editor.apply()
+
+            finish()
         }
 
+        /*lifecycleScope.launch {
+            database.categoryDao().nukeTable()
+            database.questionDao().nukeTable()
+            database.answersDao().nukeTable()
+        }*/
+
         lifecycleScope.launch {
+
             if (database.categoryDao().getNumberCategory() == 0) {
                 val categories = listOf(
                     Category(1, "Cinéma"),
@@ -185,23 +194,23 @@ class MainActivity : AppCompatActivity() {
             if (database.answersDao().getNumberAnswers() == 0) {
                 val answers = listOf(
                     // Réponses pour les questions de la catégorie Cinéma
-                    Answers(1, 1, "Christopher Nolan", true),
-                    Answers(2, 1, "Steven Spielberg", false),
-                    Answers(3, 1, "James Cameron", false),
+                    Answers(1, 1, "Steven Spielberg", false),
+                    Answers(2, 1, "James Cameron", false),
+                    Answers(3, 1, "Christopher Nolan", true),
                     Answers(4, 1, "Quentin Tarantino", false),
 
-                    Answers(5, 2, "Johnny Depp", true),
-                    Answers(6, 2, "Leonardo DiCaprio", false),
+                    Answers(5, 2, "Leonardo DiCaprio", false),
+                    Answers(6, 2, "Johnny Depp", true),
                     Answers(7, 2, "Brad Pitt", false),
                     Answers(8, 2, "Tom Cruise", false),
 
-                    Answers(9, 3, "Forrest Gump", true),
-                    Answers(10, 3, "Pulp Fiction", false),
-                    Answers(11, 3, "The Shawshank Redemption", false),
-                    Answers(12, 3, "Braveheart", false),
+                    Answers(9, 3, "Pulp Fiction", false),
+                    Answers(10, 3, "The Shawshank Redemption", false),
+                    Answers(11, 3, "Braveheart", false),
+                    Answers(12, 3, "Forrest Gump", true),
 
-                    Answers(13, 4, "Le Parrain", true),
-                    Answers(14, 4, "Scarface", false),
+                    Answers(13, 4, "Scarface", false),
+                    Answers(14, 4, "Le Parrain", true),
                     Answers(15, 4, "Les Incorruptibles", false),
                     Answers(16, 4, "Heat", false),
 
@@ -215,60 +224,60 @@ class MainActivity : AppCompatActivity() {
                     Answers(23, 6, "Aladdin", false),
                     Answers(24, 6, "Tarzan", false),
 
-                    Answers(25, 7, "Forrest Gump", true),
-                    Answers(26, 7, "Rain Man", false),
-                    Answers(27, 7, "Big", false),
-                    Answers(28, 7, "Apollo 13", false),
+                    Answers(25, 7, "Rain Man", false),
+                    Answers(26, 7, "Big", false),
+                    Answers(27, 7, "Apollo 13", false),
+                    Answers(28, 7, "Forrest Gump", true),
 
-                    Answers(29, 8, "The Matrix", true),
-                    Answers(30, 8, "Blade Runner", false),
-                    Answers(31, 8, "Total Recall", false),
+                    Answers(29, 8, "Blade Runner", false),
+                    Answers(30, 8, "Total Recall", false),
+                    Answers(31, 8, "The Matrix", true),
                     Answers(32, 8, "Terminator 2", false),
 
-                    Answers(33, 9, "Un nouvel espoir", true),
-                    Answers(34, 9, "L'Empire contre-attaque", false),
-                    Answers(35, 9, "Le Retour du Jedi", false),
+                    Answers(33, 9, "L'Empire contre-attaque", false),
+                    Answers(34, 9, "Le Retour du Jedi", false),
+                    Answers(35, 9, "Un nouvel espoir", true),
                     Answers(36, 9, "La Menace fantôme", false),
 
-                    Answers(37, 10, "Russell Crowe", true),
-                    Answers(38, 10, "Mel Gibson", false),
-                    Answers(39, 10, "Tom Hanks", false),
+                    Answers(37, 10, "Mel Gibson", false),
+                    Answers(38, 10, "Tom Hanks", false),
+                    Answers(39, 10, "Russell Crowe", true),
                     Answers(40, 10, "Brad Pitt", false),
 
                     // Réponses pour les questions de la catégorie Littérature
-                    Answers(41, 11, "Victor Hugo", true),
-                    Answers(42, 11, "Émile Zola", false),
+                    Answers(41, 11, "Émile Zola", false),
+                    Answers(42, 11, "Victor Hugo", true),
                     Answers(43, 11, "Gustave Flaubert", false),
                     Answers(44, 11, "Alexandre Dumas", false),
 
-                    Answers(45, 12, "Harry Potter à l'école des sorciers", true),
-                    Answers(46, 12, "Harry Potter et la Chambre des secrets", false),
+                    Answers(45, 12, "Harry Potter et la Chambre des secrets", false),
+                    Answers(46, 12, "Harry Potter à l'école des sorciers", true),
                     Answers(47, 12, "Harry Potter et le Prisonnier d'Azkaban", false),
                     Answers(48, 12, "Harry Potter et la Coupe de feu", false),
 
-                    Answers(49, 13, "George Orwell", true),
-                    Answers(50, 13, "Aldous Huxley", false),
-                    Answers(51, 13, "Ray Bradbury", false),
+                    Answers(49, 13, "Aldous Huxley", false),
+                    Answers(50, 13, "Ray Bradbury", false),
+                    Answers(51, 13, "George Orwell", true),
                     Answers(52, 13, "Arthur C. Clarke", false),
 
-                    Answers(53, 14, "Anna Karenine", true),
-                    Answers(54, 14, "Guerre et Paix", false),
-                    Answers(55, 14, "Les Frères Karamazov", false),
-                    Answers(56, 14, "Crime et Châtiment", false),
+                    Answers(53, 14, "Guerre et Paix", false),
+                    Answers(54, 14, "Les Frères Karamazov", false),
+                    Answers(55, 14, "Crime et Châtiment", false),
+                    Answers(56, 14, "Anna Karenine", true),
 
                     Answers(57, 15, "Agatha Christie", true),
                     Answers(58, 15, "Arthur Conan Doyle", false),
                     Answers(59, 15, "Raymond Chandler", false),
                     Answers(60, 15, "Dashiell Hammett", false),
 
-                    Answers(61, 16, "The Lord of the Rings", true),
-                    Answers(62, 16, "The Hobbit", false),
+                    Answers(61, 16, "The Hobbit", false),
+                    Answers(62, 16, "The Lord of the Rings", true),
                     Answers(63, 16, "The Silmarillion", false),
                     Answers(64, 16, "Unfinished Tales", false),
 
-                    Answers(65, 17, "Herman Melville", true),
-                    Answers(66, 17, "Mark Twain", false),
-                    Answers(67, 17, "Nathaniel Hawthorne", false),
+                    Answers(65, 17, "Mark Twain", false),
+                    Answers(66, 17, "Nathaniel Hawthorne", false),
+                    Answers(67, 17, "Herman Melville", true),
                     Answers(68, 17, "Henry James", false),
 
                     Answers(69, 18, "Animal Farm", true),
@@ -276,14 +285,14 @@ class MainActivity : AppCompatActivity() {
                     Answers(71, 18, "Fahrenheit 451", false),
                     Answers(72, 18, "We", false),
 
-                    Answers(73, 19, "Jane Austen", true),
-                    Answers(74, 19, "Charlotte Brontë", false),
+                    Answers(73, 19, "Charlotte Brontë", false),
+                    Answers(74, 19, "Jane Austen", true),
                     Answers(75, 19, "Emily Brontë", false),
                     Answers(76, 19, "Mary Shelley", false),
 
-                    Answers(77, 20, "One Hundred Years of Solitude", true),
-                    Answers(78, 20, "Love in the Time of Cholera", false),
-                    Answers(79, 20, "The Autumn of the Patriarch", false),
+                    Answers(77, 20, "Love in the Time of Cholera", false),
+                    Answers(78, 20, "The Autumn of the Patriarch", false),
+                    Answers(79, 20, "One Hundred Years of Solitude", true),
                     Answers(80, 20, "Chronicle of a Death Foretold", false),
 
                     // Réponses pour les questions de la catégorie Jeux Vidéo
@@ -293,8 +302,8 @@ class MainActivity : AppCompatActivity() {
                     Answers(84, 21, "Navi", false),
 
                     Answers(85, 22, "Digimon", false),
-                    Answers(86, 22, "Pokémon", true),
-                    Answers(87, 22, "Yu-Gi-Oh!", false),
+                    Answers(86, 22, "Yu-Gi-Oh!", false),
+                    Answers(87, 22, "Pokémon", true),
                     Answers(88, 22, "Monster Rancher", false),
 
                     Answers(89, 23, "Fortnite", false),
@@ -308,22 +317,22 @@ class MainActivity : AppCompatActivity() {
                     Answers(96, 24, "Ubisoft", false),
 
                     Answers(97, 25, "Doom", false),
-                    Answers(98, 25, "Half-Life", true),
-                    Answers(99, 25, "Quake", false),
-                    Answers(100, 25, "System Shock", false),
+                    Answers(98, 25, "Quake", false),
+                    Answers(99, 25, "System Shock", false),
+                    Answers(100, 25, "Half-Life", true),
 
                     Answers(101, 26, "Masamune", false),
                     Answers(102, 26, "Ragnarok", false),
                     Answers(103, 26, "Buster Sword", true),
                     Answers(104, 26, "Excalibur", false),
 
-                    Answers(105, 27, "Mojang", true),
-                    Answers(106, 27, "Valve", false),
-                    Answers(107, 27, "EA", false),
+                    Answers(105, 27, "Valve", false),
+                    Answers(106, 27, "EA", false),
+                    Answers(107, 27, "Mojang", true),
                     Answers(108, 27, "Bungie", false),
 
-                    Answers(109, 28, "David", true),
-                    Answers(110, 28, "Jack", false),
+                    Answers(109, 28, "Jack", false),
+                    Answers(110, 28, "David", true),
                     Answers(111, 28, "John", false),
                     Answers(112, 28, "Sam", false),
 
@@ -338,18 +347,18 @@ class MainActivity : AppCompatActivity() {
                     Answers(120, 30, "Atteindre le plus haut score", false),
 
                     // Réponses pour les questions de la catégorie Culture Générale
-                    Answers(121, 31, "Paris", true),
-                    Answers(122, 31, "Londres", false),
-                    Answers(123, 31, "Madrid", false),
+                    Answers(121, 31, "Londres", false),
+                    Answers(122, 31, "Madrid", false),
+                    Answers(123, 31, "Paris", true),
                     Answers(124, 31, "Berlin", false),
 
-                    Answers(125, 32, "William Shakespeare", true),
-                    Answers(126, 32, "Molière", false),
-                    Answers(127, 32, "Victor Hugo", false),
+                    Answers(125, 32, "Molière", false),
+                    Answers(126, 32, "Victor Hugo", false),
+                    Answers(127, 32, "William Shakespeare", true),
                     Answers(128, 32, "Anton Tchekhov", false),
 
-                    Answers(129, 33, "Jupiter", true),
-                    Answers(130, 33, "Saturne", false),
+                    Answers(129, 33, "Saturne", false),
+                    Answers(130, 33, "Jupiter", true),
                     Answers(131, 33, "Uranus", false),
                     Answers(132, 33, "Neptune", false),
 
@@ -358,18 +367,18 @@ class MainActivity : AppCompatActivity() {
                     Answers(135, 34, "CO2", false),
                     Answers(136, 34, "N2", false),
 
-                    Answers(137, 35, "Leonard de Vinci", true),
-                    Answers(138, 35, "Michel-Ange", false),
-                    Answers(139, 35, "Raphaël", false),
+                    Answers(137, 35, "Michel-Ange", false),
+                    Answers(138, 35, "Raphaël", false),
+                    Answers(139, 35, "Leonard de Vinci", true),
                     Answers(140, 35, "Donatello", false),
 
-                    Answers(141, 36, "Portugais", true),
-                    Answers(142, 36, "Espagnol", false),
+                    Answers(141, 36, "Espagnol", false),
+                    Answers(142, 36, "Portugais", true),
                     Answers(143, 36, "Français", false),
                     Answers(144, 36, "Anglais", false),
 
-                    Answers(145, 37, "Nil", true),
-                    Answers(146, 37, "Amazon", false),
+                    Answers(145, 37, "Amazon", false),
+                    Answers(146, 37, "Nil", true),
                     Answers(147, 37, "Yangtsé", false),
                     Answers(148, 37, "Mississippi", false),
 
@@ -378,22 +387,20 @@ class MainActivity : AppCompatActivity() {
                     Answers(151, 38, "Galilée", false),
                     Answers(152, 38, "Nikola Tesla", false),
 
-                    Answers(153, 39, "Yen", true),
-                    Answers(154, 39, "Dollar", false),
-                    Answers(155, 39, "Won", false),
-                    Answers(156, 39, "Euro", false),
+                    Answers(153, 39, "Dollar", false),
+                    Answers(154, 39, "Won", false),
+                    Answers(155, 39, "Euro", false),
+                    Answers(156, 39, "Yen", true),
 
-                    Answers(157, 40, "Everest", true),
-                    Answers(158, 40, "K2", false),
-                    Answers(159, 40, "Kangchenjunga", false),
-                    Answers(160, 40, "Lhotse", false)
+                    Answers(157, 40, "K2", false),
+                    Answers(158, 40, "Kangchenjunga", false),
+                    Answers(159, 40, "Lhotse", false),
+                    Answers(160, 40, "Everest", true)
                 )
                 answers.forEach { answer ->
                     database.answersDao().insert(answer)
                 }
             }
         }
-
-
     }
 }

@@ -1,6 +1,9 @@
 package com.example.quizz
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +12,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.example.quizz.databinding.FragmentQuestionBinding
+import com.example.quizz.QuestionFragmentDirections
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import android.os.Handler
-import android.os.Looper
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -23,12 +25,14 @@ class QuestionFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var database: AppDatabase
     private var currentPageIndex = 0
-    private var answerSelectedTime: MutableMap<Int, Long> = mutableMapOf() // Time when an answer was selected
-    private var timer: CountDownTime? = null
+    private var score = 0
+    private var questions: List<Question> = listOf()
+    private lateinit var sharedPreferences: SharedPreferences
+    private var timer: CountDownTimer? = null
 
     companion object {
-        private const val QUESTIONS_PER_PAGE = 1
         private const val TIMER_DELAY = 10000 // 10 seconds in milliseconds
+        private const val MAX_QUESTIONS = 10
     }
 
     override fun onCreateView(
@@ -38,6 +42,7 @@ class QuestionFragment : Fragment() {
 
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
         database = (requireActivity().application as QuizApplication).database
+        sharedPreferences = requireActivity().getSharedPreferences("quiz_scores", Context.MODE_PRIVATE)
         return binding.root
 
     }
@@ -45,37 +50,14 @@ class QuestionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        manageTimer()
-
-        binding.buttonSecond.setOnClickListener {
-            if (currentPageIndex > 0) {
-                currentPageIndex--
-                lifecycleScope.launch {
-                    displayCurrentPageQuestions(
-                        database.questionDao()
-                            .getQuestionsByCategory(arguments?.getInt("categoryId")!!)
-                    )
-                }
-            } else {
-                findNavController().navigateUp()
-            }
-        }
+        val categoryId = arguments?.getInt("categoryId") ?: return
 
         lifecycleScope.launch {
-            val questions = database.questionDao().getQuestionsByCategory((arguments?.getInt("categoryId")!!))
-            displayCurrentPageQuestions(questions)
-
-            binding.nextButton.setOnClickListener {
-               currentPageIndex++
-                navigateToNextPageOrRestartTimer()
-            }
+            questions =
+                database.questionDao().getQuestionsByCategory(categoryId).take(MAX_QUESTIONS)
+            displayCurrentPageQuestions()
+            startTimer()
         }
-
-        // Start a global timer after displaying questions
-        Handler(Looper.getMainLooper()).postDelayed({
-            currentPageIndex++
-            navigateToNextPageOrRestartTimer()
-        }, TIMER_DELAY.toLong())
     }
 
     override fun onDestroyView() {
@@ -83,54 +65,72 @@ class QuestionFragment : Fragment() {
         _binding = null
     }
 
-    private fun manageTimer() {
-        timer?.cancel() // Cancel the current timer if it exists
-        timer = CountDownTime(TIMER_DELAY.toLong(), 1000, binding) // Create a new timer
-        timer?.start() // Start the timer
+    private fun startTimer() {
+        timer?.cancel()
+        timer = object : CountDownTimer(TIMER_DELAY.toLong(), 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                binding.timerText.text = "Temps restant : ${millisUntilFinished / 1000}"
+            }
+
+            override fun onFinish() {
+                currentPageIndex++
+                navigateToNextPage()
+            }
+        }.start()
     }
 
-    private fun navigateToNextPageOrRestartTimer() {
-        lifecycleScope.launch {
-            displayCurrentPageQuestions(database.questionDao().getQuestionsByCategory(arguments?.getInt("categoryId")!!))
-            manageTimer() // Restart the timer for the new page
+    private fun navigateToNextPage() {
+        if (currentPageIndex < questions.size) {
+            lifecycleScope.launch {
+                displayCurrentPageQuestions()
+                startTimer()
+            }
+        } else {
+            saveScore()
+            val username = arguments?.getString("username") ?: "Unknown"
+            val action = QuestionFragmentDirections.actionQuestionFragmentToScoreFragment(score, username)
+            findNavController().navigate(action)
         }
     }
 
-    private suspend fun displayCurrentPageQuestions(questions: List<Question>) {
+
+    private suspend fun displayCurrentPageQuestions() {
         binding.questionContainer.removeAllViews()
 
-        val startIndex = currentPageIndex * QUESTIONS_PER_PAGE
-        val endIndex = minOf(startIndex + QUESTIONS_PER_PAGE, questions.size)
-
-        for (i in startIndex until endIndex) {
-            val question = questions[i]
-
-            val questionTextView = TextView(requireContext()).apply {
-                text = question.text
-                textSize = 18f
-            }
-            binding.questionContainer.addView(questionTextView)
-
-            val answers = database.answersDao().getAnswersByQuestionId(question.id)
-            for ((index, answer) in answers.withIndex()) {
-                val answerButton = Button(requireContext()).apply {
-                    text = answer.text
-                    setOnClickListener {
-                        answerSelectedTime[index] = System.currentTimeMillis()
-                        Handler(Looper.getMainLooper()).postDelayed({
-                            if (System.currentTimeMillis() - answerSelectedTime[index]!! >= TIMER_DELAY) {
-                                currentPageIndex++
-                                lifecycleScope.launch {
-                                    displayCurrentPageQuestions(questions)
-                                }
-                            }
-                        }, TIMER_DELAY.toLong())
-                    }
-                }
-                binding.questionContainer.addView(answerButton)
-            }
+        val question = questions[currentPageIndex]
+        val questionTextView = TextView(requireContext()).apply {
+            text = question.text
+            textSize = 18f
         }
+        binding.questionContainer.addView(questionTextView)
 
-        binding.nextButton.visibility = if (endIndex < questions.size) View.VISIBLE else View.GONE
+        val answers = database.answersDao().getAnswersByQuestionId(question.id)
+        for (answer in answers) {
+            val answerButton = Button(requireContext()).apply {
+                text = answer.text
+                setOnClickListener {
+                    if (answer.isCorrect) {
+                        score++
+                        updateScoreTextView()
+                        // currentPageIndex++
+                    }
+                    currentPageIndex++
+                    navigateToNextPage()
+                }
+            }
+            binding.questionContainer.addView(answerButton)
+        }
+    }
+
+    private fun updateScoreTextView() {
+        binding.scoreTextView.text = "Score: $score"
+    }
+
+    private fun saveScore() {
+        val categoryId = arguments?.getInt("categoryId") ?: return
+        val username = arguments?.getString("username") ?: return
+        val editor = sharedPreferences.edit()
+        editor.putInt("$username-$categoryId", score)
+        editor.apply()
     }
 }

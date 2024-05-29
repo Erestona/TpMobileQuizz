@@ -17,4 +17,6 @@ interface AnswersDao {
 
     @Query("SELECT * FROM answers WHERE id = :id")
     suspend fun getAnswerById(id: Int): Answers?
+    @Query("DELETE FROM answers")
+    suspend fun nukeTable()
 }

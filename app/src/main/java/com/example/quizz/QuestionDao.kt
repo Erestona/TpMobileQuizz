@@ -17,4 +17,7 @@ interface QuestionDao {
 
     @Query("SELECT * FROM questions WHERE id = :id")
     suspend fun getQuestionById(id: Int): Question?
+
+    @Query("DELETE FROM questions")
+    suspend fun nukeTable()
 }

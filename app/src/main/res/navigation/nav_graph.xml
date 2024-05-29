@@ -24,5 +24,25 @@
         <action
             android:id="@+id/action_QuestionFragment_to_CategoryFragment"
             app:destination="@id/CategoryFragment" />
+        <action
+            android:id="@+id/action_QuestionFragment_to_ScoreFragment"
+            app:destination="@id/ScoreFragment">
+            <argument
+                android:name="score"
+                app:argType="integer" />
+            <argument
+                android:name="username"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/ScoreFragment"
+        android:name="com.example.quizz.ScoreFragment"
+        android:label="@string/third_fragment_label"
+        tools:layout="@layout/fragment_score">
+
+        <action
+            android:id="@+id/action_ScoreFragment_to_CategoryFragment"
+            app:destination="@id/CategoryFragment" />
     </fragment>
 </navigation>
