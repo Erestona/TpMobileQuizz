@@ -57,12 +57,27 @@ class CategoryFragment : Fragment() {
 
     private fun createCategoryButtons(categories: List<Category>) {
         binding.categoryButtons.removeAllViews() // Clear any existing buttons
+        val marginTopInPixels = resources.getDimensionPixelSize(R.dimen.fab_margin)
+
         for (category in categories) {
-            val button = Button(requireContext())
-            button.text = category.name
-            button.setOnClickListener {
-                val bundle = createBundle(category.id)
-                findNavController().navigate(R.id.action_CategoryFragment_to_QuestionFragment, bundle)
+            val button = Button(requireContext()).apply {
+                text = category.name
+                typeface = resources.getFont(R.font.montserrat_bold)
+                setTextColor(resources.getColor(R.color.white))
+                setBackgroundResource(R.drawable.rounded_button)
+                textSize = 15f
+
+                layoutParams = ViewGroup.MarginLayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, // Width
+                    ViewGroup.LayoutParams.WRAP_CONTENT // Height
+                ).apply {
+                    setMargins(0, marginTopInPixels, 0, 0)
+                }
+
+                setOnClickListener {
+                    val bundle = createBundle(category.id)
+                    findNavController().navigate(R.id.action_CategoryFragment_to_QuestionFragment, bundle)
+                }
             }
             binding.categoryButtons.addView(button)
         }
