@@ -6,9 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
@@ -32,14 +30,16 @@ class MainActivity : AppCompatActivity() {
         m_buttonSubmit = findViewById(R.id.buttonSubmit)
 
         m_buttonSubmit.setOnClickListener {
-            val intent = Intent(this@MainActivity, GameActivity::class.java).apply {
-                putExtra("username", editTextUsername.text.toString())
-            }
-            startActivity(intent)
+            val usernameInput = editTextUsername.text.toString()
 
             val editor = sharedPreferences.edit()
-            editor.putString("username",  editTextUsername.text.toString())
+            editor.putString("username",  usernameInput)
             editor.apply()
+
+            val intent = Intent(this@MainActivity, GameActivity::class.java).apply {
+                putExtra("username", usernameInput)
+            }
+            startActivity(intent)
 
             finish()
         }

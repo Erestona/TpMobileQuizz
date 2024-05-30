@@ -12,7 +12,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.example.quizz.databinding.FragmentQuestionBinding
-import com.example.quizz.QuestionFragmentDirections
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
@@ -42,7 +41,7 @@ class QuestionFragment : Fragment() {
 
         _binding = FragmentQuestionBinding.inflate(inflater, container, false)
         database = (requireActivity().application as QuizApplication).database
-        sharedPreferences = requireActivity().getSharedPreferences("quiz_scores", Context.MODE_PRIVATE)
+        sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         return binding.root
 
     }
@@ -86,13 +85,24 @@ class QuestionFragment : Fragment() {
                 startTimer()
             }
         } else {
+            timer?.cancel()
             saveScore()
-            val username = arguments?.getString("username") ?: "Unknown"
-            val action = QuestionFragmentDirections.actionQuestionFragmentToScoreFragment(score, username)
-            findNavController().navigate(action)
+            val username = sharedPreferences.getString("username", "Unknown") ?: "Unknown"
+            //val action = QuestionFragmentDirections.actionQuestionFragmentToScoreFragment(score, username)
+            //findNavController().navigate(action)
+            val bundle = createBundle(score, username)
+            findNavController().navigate(R.id.action_QuestionFragment_to_ScoreFragment, bundle)
         }
     }
 
+    private fun createBundle(score: Int, username: String) : Bundle
+    {
+        val bundle = Bundle().apply {
+            putInt("score", score)
+            putString("username", username)
+        }
+        return bundle;
+    }
 
     private suspend fun displayCurrentPageQuestions() {
         binding.questionContainer.removeAllViews()
@@ -128,7 +138,7 @@ class QuestionFragment : Fragment() {
 
     private fun saveScore() {
         val categoryId = arguments?.getInt("categoryId") ?: return
-        val username = arguments?.getString("username") ?: return
+        val username = sharedPreferences.getString("username", "Unknown") ?: "Unknown"
         val editor = sharedPreferences.edit()
         editor.putInt("$username-$categoryId", score)
         editor.apply()

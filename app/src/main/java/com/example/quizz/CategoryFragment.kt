@@ -1,5 +1,6 @@
 package com.example.quizz
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.quizz.databinding.FragmentCategoryBinding
 import androidx.lifecycle.lifecycleScope
@@ -43,6 +43,11 @@ class CategoryFragment : Fragment() {
             val categories = database.categoryDao().getAllCategories()
             createCategoryButtons(categories)
         }
+
+        binding.backToMain.setOnClickListener {
+            val intent = Intent(activity, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {
@@ -56,7 +61,6 @@ class CategoryFragment : Fragment() {
             val button = Button(requireContext())
             button.text = category.name
             button.setOnClickListener {
-                // Handle button click for this category
                 val bundle = createBundle(category.id)
                 findNavController().navigate(R.id.action_CategoryFragment_to_QuestionFragment, bundle)
             }

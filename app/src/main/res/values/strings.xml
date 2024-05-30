@@ -4,15 +4,16 @@
     <string name="category_fragment_label">Catégories</string>
     <string name="second_fragment_label">Questions</string>
     <string name="third_fragment_label">Scores</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="category">Back to categories</string>
+    <string name="backToCategory">Retour vers catégories</string>
+    <string name="backToMain">Retour accueil</string>
     <string name="welcome">Bienvenue dans le Quiz Game !</string>
     <string name="enter_pseudo">Entrer votre pseudo :</string>
     <string name="pseudo">Votre pseudo</string>
     <string name="validate">Valider</string>
     <string name="descriptionLogo">theLogo</string>
-    <string name="welcome_to_quiz">Bienvenue</string>
+    <string name="welcome_to_quiz">Nous te souhaitons la bienvenue</string>
     <string name="choose_category">Choisis une catégorie</string>
+    <string name="pseudoTwo">Username: Unknown</string>
+    <string name="score">Score: 0</string>
 
 </resources>
