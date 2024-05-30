@@ -44,11 +44,11 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        /*lifecycleScope.launch {
-            database.categoryDao().nukeTable()
-            database.questionDao().nukeTable()
-            database.answersDao().nukeTable()
-        }*/
+        //lifecycleScope.launch {
+        //    database.categoryDao().nukeTable()
+        //    database.questionDao().nukeTable()
+        //    database.answersDao().nukeTable()
+        //}
 
         lifecycleScope.launch {
 
@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity() {
                     ),
 
                     // Catégorie Culture Générale
-                    Question(31, "Quelle est la capitale de la France ?", 4),
+                    Question(31, "Quelle est la capitale de l'Australie ?", 4),
                     Question(32, "Qui a écrit la pièce \"Roméo et Juliette\" ?", 4),
                     Question(33, "Quelle est la plus grande planète du système solaire ?", 4),
                     Question(34, "Quel est le symbole chimique de l'eau ?", 4),
@@ -347,10 +347,10 @@ class MainActivity : AppCompatActivity() {
                     Answers(120, 30, "Atteindre le plus haut score", false),
 
                     // Réponses pour les questions de la catégorie Culture Générale
-                    Answers(121, 31, "Londres", false),
-                    Answers(122, 31, "Madrid", false),
-                    Answers(123, 31, "Paris", true),
-                    Answers(124, 31, "Berlin", false),
+                    Answers(121, 31, "Sydney", false),
+                    Answers(122, 31, "Melbourne", false),
+                    Answers(123, 31, "Canberra", true),
+                    Answers(124, 31, "Brisbane", false),
 
                     Answers(125, 32, "Molière", false),
                     Answers(126, 32, "Victor Hugo", false),
