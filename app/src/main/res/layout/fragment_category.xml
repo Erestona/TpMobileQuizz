@@ -15,6 +15,8 @@
             android:id="@+id/backToMain"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:backgroundTint="@color/blue"
+            android:fontFamily="@font/montserrat_bold"
             android:text="@string/backToMain"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/category_buttons"
@@ -24,10 +26,11 @@
             android:id="@+id/welcome_to_quiz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_regular"
             android:text="@string/welcome_to_quiz"
             android:textAlignment="center"
-            android:textSize="30sp"
-            android:layout_marginTop="10dp"
+            android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backToMain" />
@@ -37,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/caskaydia_bold"
             android:text=""
             android:textAlignment="center"
             android:textSize="25sp"
@@ -46,16 +50,45 @@
 
 
         <TextView
-            android:id="@+id/choose_category"
+            android:id="@+id/rules"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/choose_category"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/rules"
             android:textAlignment="center"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/player_name"
+            app:layout_constraintVertical_bias="1" />
+
+        <TextView
+            android:id="@+id/game_rules"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/gameRules"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rules"
+            app:layout_constraintVertical_bias="1" />
+
+        <TextView
+            android:id="@+id/choose_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/choose_category"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/game_rules"
             app:layout_constraintVertical_bias="1" />
 
         <LinearLayout
@@ -67,8 +100,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/choose_category"/>
-
+            app:layout_constraintTop_toBottomOf="@id/choose_category" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
