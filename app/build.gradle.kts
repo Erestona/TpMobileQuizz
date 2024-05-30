@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.devtools.ksp")
-    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -56,8 +55,4 @@ dependencies {
     // To use Kotlin Symbol Processing (KSP)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
-
-    // Safe Args dependencies
-    implementation(libs.androidx.navigation.fragment.ktx.v277)
-    implementation(libs.androidx.navigation.ui.ktx.v277)
 }
