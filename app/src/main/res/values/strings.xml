@@ -13,7 +13,7 @@
     <string name="descriptionLogo">theLogo</string>
     <string name="welcome_to_quiz">Nous te souhaitons la bienvenue</string>
     <string name="choose_category">Choisis une catégorie</string>
-    <string name="pseudoTwo">Username: Unknown</string>
+    <string name="pseudoTwo">Pseudo: Unknown</string>
     <string name="score">Score: 0</string>
 
 </resources>
