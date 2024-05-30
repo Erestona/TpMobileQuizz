@@ -16,38 +16,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/backToCategory"
-            app:layout_constraintBottom_toTopOf="@id/scoreContainer"
+            app:layout_constraintBottom_toTopOf="@id/scoreTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/scoreContainer"
+        <TextView
+            android:id="@+id/scoreTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="25dp"
-            android:clipToPadding="false"
-            android:orientation="vertical"
             android:padding="16dp"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button_category">
-
-            <TextView
-                android:id="@+id/usernameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pseudoTwo"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/scoreTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/score"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
+            app:layout_constraintTop_toBottomOf="@id/button_category" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

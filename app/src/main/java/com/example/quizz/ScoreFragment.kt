@@ -31,12 +31,35 @@ class ScoreFragment : Fragment() {
         val username = sharedPreferences.getString("username", "Unknown") ?: "Unknown"
         val score = arguments?.getInt("score") ?: 0
 
-        binding.scoreTextView.text = "Score: $score"
-        binding.usernameTextView.text = "Pseudo: $username"
+        //binding.scoreTextView.text = "Score: $score"
+        //binding.usernameTextView.text = "Pseudo: $username"
+
+        // Save the current player's score
+        savePlayerScore(username, score)
+
+        // Retrieve the last 5 players' scores
+        val playerScores = getLastPlayerScores(sharedPreferences)
+
+        // Display the scores
+        displayPlayerScores(playerScores)
 
         binding.buttonCategory.setOnClickListener {
             findNavController().navigate(R.id.action_ScoreFragment_to_CategoryFragment)
         }
+    }
+
+    private fun savePlayerScore(username: String, score: Int) {
+        val playerScores = getLastPlayerScores(sharedPreferences).toMutableList()
+        if (playerScores.size >= 5) {
+            playerScores.removeAt(0) // Remove the oldest entry if we already have 5
+        }
+        playerScores.add(PlayerScore(username, score))
+        savePlayerScores(sharedPreferences, playerScores)
+    }
+
+    private fun displayPlayerScores(playerScores: List<PlayerScore>) {
+        val scoresText = playerScores.joinToString("\n") { "Pseudo: ${it.username} - Score: ${it.score}" }
+        binding.scoreTextView.text = scoresText
     }
 
     override fun onDestroyView() {
