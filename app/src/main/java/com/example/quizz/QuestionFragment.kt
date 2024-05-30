@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.view.marginTop
 import androidx.navigation.fragment.findNavController
 import com.example.quizz.databinding.FragmentQuestionBinding
 import androidx.lifecycle.lifecycleScope
@@ -61,7 +62,9 @@ class QuestionFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        timer?.cancel()
         _binding = null
+        currentPageIndex = 0
     }
 
     private fun startTimer() {
@@ -88,8 +91,7 @@ class QuestionFragment : Fragment() {
             timer?.cancel()
             saveScore()
             val username = sharedPreferences.getString("username", "Unknown") ?: "Unknown"
-            //val action = QuestionFragmentDirections.actionQuestionFragmentToScoreFragment(score, username)
-            //findNavController().navigate(action)
+
             val bundle = createBundle(score, username)
             findNavController().navigate(R.id.action_QuestionFragment_to_ScoreFragment, bundle)
         }
@@ -105,24 +107,42 @@ class QuestionFragment : Fragment() {
     }
 
     private suspend fun displayCurrentPageQuestions() {
+        if (currentPageIndex >= questions.size) {
+            return
+        }
+
         binding.questionContainer.removeAllViews()
 
         val question = questions[currentPageIndex]
         val questionTextView = TextView(requireContext()).apply {
             text = question.text
-            textSize = 18f
+            typeface = resources.getFont(R.font.montserrat_medium)
+            textSize = 22f
         }
         binding.questionContainer.addView(questionTextView)
 
         val answers = database.answersDao().getAnswersByQuestionId(question.id)
+        val marginTopInPixels = resources.getDimensionPixelSize(R.dimen.fab_margin)
+
         for (answer in answers) {
             val answerButton = Button(requireContext()).apply {
                 text = answer.text
+                typeface = resources.getFont(R.font.montserrat_bold)
+                setTextColor(resources.getColor(R.color.white))
+                setBackgroundResource(R.drawable.rounded_button)
+                textSize = 15f
+
+                layoutParams = ViewGroup.MarginLayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    setMargins(0, marginTopInPixels, 0, 0)
+                }
+
                 setOnClickListener {
                     if (answer.isCorrect) {
                         score++
                         updateScoreTextView()
-                        // currentPageIndex++
                     }
                     currentPageIndex++
                     navigateToNextPage()
@@ -133,7 +153,7 @@ class QuestionFragment : Fragment() {
     }
 
     private fun updateScoreTextView() {
-        binding.scoreTextView.text = "Score: $score"
+        binding.scoreTextView.text = "Score: $score/10"
     }
 
     private fun saveScore() {
