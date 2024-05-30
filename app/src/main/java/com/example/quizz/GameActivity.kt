@@ -5,7 +5,6 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.quizz.databinding.ActivityGameBinding
 import androidx.lifecycle.lifecycleScope
@@ -31,7 +30,7 @@ class GameActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Envoie ton PayPal !", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .setAnchorView(R.id.fab).show()
         }
@@ -46,7 +45,13 @@ class GameActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_game)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+        return when (navController.currentDestination?.id) {
+            R.id.ScoreFragment -> {
+                navController.navigate(R.id.action_ScoreFragment_to_CategoryFragment)
+                true
+            }
+
+            else -> navController.navigateUp() || super.onSupportNavigateUp()
+        }
     }
 }
