@@ -34,12 +34,13 @@ fun savePlayerScores(sharedPreferences: SharedPreferences, playerScores: List<Pl
     sharedPreferences.edit().putString("playerScores", json).apply()
 }
 
-fun getLastPlayerScores(sharedPreferences: SharedPreferences): List<PlayerScore> {
+fun getTopPlayerScores(sharedPreferences: SharedPreferences, number: Int): List<PlayerScore> {
     val gson = Gson()
     val json = sharedPreferences.getString("playerScores", null)
     return if (json != null) {
         val type = object : TypeToken<List<PlayerScore>>() {}.type
-        gson.fromJson(json, type)
+        val allScores: List<PlayerScore> = gson.fromJson(json, type)
+        allScores.sortedByDescending { it.score }.take(number)
     } else {
         emptyList()
     }

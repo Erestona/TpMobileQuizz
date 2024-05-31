@@ -34,8 +34,9 @@ class ScoreFragment : Fragment() {
 
         // Save the current player's score
         savePlayerScore(username, score)
-        // Retrieve the last 5 players' scores
-        val playerScores = getLastPlayerScores(sharedPreferences)
+
+        // Retrieve the top 10 players' scores
+        val playerScores = getTopPlayerScores(sharedPreferences, 10)
         displayPlayerScores(playerScores)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -46,15 +47,13 @@ class ScoreFragment : Fragment() {
     }
 
     private fun savePlayerScore(username: String, score: Int) {
-        val playerScores = getLastPlayerScores(sharedPreferences).toMutableList()
-        if (playerScores.size >= 5) {
-            playerScores.removeAt(0)
-        }
+        val playerScores = getTopPlayerScores(sharedPreferences, 10).toMutableList()
         playerScores.add(PlayerScore(username, score))
         savePlayerScores(sharedPreferences, playerScores)
     }
 
     private fun displayPlayerScores(playerScores: List<PlayerScore>) {
+        val marginTopInPixels = resources.getDimensionPixelSize(R.dimen.fab_margin)
         val scoresText = playerScores.joinToString("\n") { "Pseudo: ${it.username} - Score: ${it.score}/10" }
         binding.scoreTextView.text = scoresText
     }
