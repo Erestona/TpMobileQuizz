@@ -36,7 +36,7 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val playerName = view.findViewById<TextView>(R.id.player_name)
+        val playerName = view.findViewById<TextView>(R.id.playerName)
         playerName.text = activity?.intent?.getStringExtra("username") ?: ""
 
         lifecycleScope.launch {

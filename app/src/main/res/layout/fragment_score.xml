@@ -12,28 +12,28 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/button_category"
+            android:id="@+id/scoreboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/scoreboard"
             android:textSize="35sp"
-            app:layout_constraintBottom_toTopOf="@id/lastFiveScoresTextView"
+            app:layout_constraintBottom_toTopOf="@id/bestScoresTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/lastFiveScoresTextView"
+            android:id="@+id/bestScoresTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/montserrat_medium"
             android:padding="10dp"
-            android:text="@string/lastFive"
+            android:text="@string/best_score"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/button_category"
+            app:layout_constraintBottom_toTopOf="@id/scoreboard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -43,11 +43,12 @@
             android:layout_height="match_parent"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/caskaydia_bold"
+            android:lineSpacingExtra="10dp"
             android:padding="16dp"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lastFiveScoresTextView" />
+            app:layout_constraintTop_toBottomOf="@id/bestScoresTextView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

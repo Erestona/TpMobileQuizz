@@ -2,24 +2,24 @@
     <string name="app_name">Quiz</string>
     <!-- Strings used for fragments for navigation -->
     <!-- Main Activity strings -->
-    <string name="descriptionLogo">theLogo</string>
+    <string name="description_logo">theLogo</string>
     <string name="welcome">Bienvenue dans le Quiz Game !</string>
-    <string name="enter_pseudo">Entrer votre pseudo :</string>
-    <string name="pseudo">Votre pseudo</string>
+    <string name="enter_pseudo">Entre ton pseudo :</string>
+    <string name="pseudo">Ton pseudo</string>
     <string name="validate">Valider</string>
     <!-- Category Fragments strings -->
     <string name="category_fragment_label">Catégories</string>
-    <string name="backToMain">Retour à l\'accueil</string>
+    <string name="back_to_main">Retour à l\'accueil</string>
     <!-- Questions Fragments strings -->
     <string name="second_fragment_label">Questions</string>
     <string name="welcome_to_quiz">Nous te souhaitons la bienvenue</string>
     <string name="rules">Règles</string>
-    <string name="gameRules">Vous avez 10 secondes pour répondre à chaque question</string>
+    <string name="game_rules">Tu as 10 secondes pour répondre à chaque question</string>
     <string name="choose_category">Choisis une catégorie</string>
     <!-- Scores Fragments strings -->
     <string name="third_fragment_label">Scores</string>
     <string name="scoreboard">Scoreboard</string>
-    <string name="lastFive">Les 5 derniers scores</string>
-    <string name="pseudoTwo">Pseudo: Unknown</string>
+    <string name="best_score">Les meilleurs scores</string>
+    <string name="pseudo_two">Pseudo: Unknown</string>
     <string name="score">Score: 0/10</string>
 </resources>

@@ -17,13 +17,13 @@
             android:layout_height="match_parent"
             android:backgroundTint="@color/blue"
             android:fontFamily="@font/montserrat_bold"
-            android:text="@string/backToMain"
+            android:text="@string/back_to_main"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/category_buttons"
+            app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/welcome_to_quiz"
+            android:id="@+id/welcomeToQuiz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -36,7 +36,7 @@
             app:layout_constraintTop_toBottomOf="@+id/backToMain" />
 
         <TextView
-            android:id="@+id/player_name"
+            android:id="@+id/playerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -44,9 +44,9 @@
             android:text=""
             android:textAlignment="center"
             android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="@+id/welcome_to_quiz"
+            app:layout_constraintEnd_toEndOf="@+id/welcomeToQuiz"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcome_to_quiz" />
+            app:layout_constraintTop_toBottomOf="@id/welcomeToQuiz" />
 
 
         <TextView
@@ -60,16 +60,16 @@
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/player_name"
+            app:layout_constraintTop_toBottomOf="@id/playerName"
             app:layout_constraintVertical_bias="1" />
 
         <TextView
-            android:id="@+id/game_rules"
+            android:id="@+id/gameRules"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/montserrat_regular"
-            android:text="@string/gameRules"
+            android:text="@string/game_rules"
             android:textAlignment="center"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +78,7 @@
             app:layout_constraintVertical_bias="1" />
 
         <TextView
-            android:id="@+id/choose_category"
+            android:id="@+id/chooseCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -88,11 +88,11 @@
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/game_rules"
+            app:layout_constraintTop_toBottomOf="@id/gameRules"
             app:layout_constraintVertical_bias="1" />
 
         <LinearLayout
-            android:id="@+id/category_buttons"
+            android:id="@+id/categoryButtons"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
@@ -100,7 +100,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/choose_category" />
+            app:layout_constraintTop_toBottomOf="@id/chooseCategory" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
