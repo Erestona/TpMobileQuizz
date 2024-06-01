@@ -12,60 +12,96 @@
         android:padding="16dp">
 
         <Button
-            android:id="@+id/button_first"
+            android:id="@+id/backToMain"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/next"
-            app:layout_constraintBottom_toTopOf="@+id/button_Cinema"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/blue"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/back_to_main"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/button_Cinema"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/welcomeToQuiz"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cinema"
-            app:layout_constraintBottom_toTopOf="@+id/button_Litterature"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/welcome_to_quiz"
+            android:textAlignment="center"
+            android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/backToMain" />
 
-        <Button
-            android:id="@+id/button_Litterature"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/playerName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/button_VideoGames"
-            android:text="Litterature"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/caskaydia_bold"
+            android:text=""
+            android:textAlignment="center"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="@+id/welcomeToQuiz"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcomeToQuiz" />
+
+
+        <TextView
+            android:id="@+id/rules"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/rules"
+            android:textAlignment="center"
+            android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@id/playerName"
+            app:layout_constraintVertical_bias="1" />
 
-        <Button
-            android:id="@+id/button_VideoGames"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/gameRules"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/button_CultureGenerale"
-            android:text="Video Games"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="@string/game_rules"
+            android:textAlignment="center"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_Litterature"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@id/rules"
+            app:layout_constraintVertical_bias="1" />
 
-        <Button
-            android:id="@+id/button_CultureGenerale"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/chooseCategory"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Culture Generale"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/choose_category"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gameRules"
+            app:layout_constraintVertical_bias="1" />
+
+        <LinearLayout
+            android:id="@+id/categoryButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_VideoGames"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@id/chooseCategory" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
