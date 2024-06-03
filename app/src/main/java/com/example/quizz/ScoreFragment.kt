@@ -35,7 +35,7 @@ class ScoreFragment : Fragment() {
         // Save the current player's score
         savePlayerScore(username, score)
 
-        // Retrieve the top 10 players' scores
+        // Retrieve the top 15 players' scores
         val playerScores = getTopPlayerScores(sharedPreferences, 15)
         displayPlayerScores(playerScores)
 
