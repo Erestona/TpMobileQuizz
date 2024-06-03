@@ -53,7 +53,6 @@ class ScoreFragment : Fragment() {
     }
 
     private fun displayPlayerScores(playerScores: List<PlayerScore>) {
-        val marginTopInPixels = resources.getDimensionPixelSize(R.dimen.fab_margin)
         val scoresText = playerScores.joinToString("\n") { "Pseudo: ${it.username} - Score: ${it.score}/10" }
         binding.scoreTextView.text = scoresText
     }
