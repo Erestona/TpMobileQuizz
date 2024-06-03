@@ -52,9 +52,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 startActivity(intent)
 
-                editor.remove("username")
-                editor.apply()
-
                 finish()
             }
         }
