@@ -36,7 +36,7 @@ class ScoreFragment : Fragment() {
         savePlayerScore(username, score)
 
         // Retrieve the top 10 players' scores
-        val playerScores = getTopPlayerScores(sharedPreferences, 10)
+        val playerScores = getTopPlayerScores(sharedPreferences, 15)
         displayPlayerScores(playerScores)
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -47,7 +47,7 @@ class ScoreFragment : Fragment() {
     }
 
     private fun savePlayerScore(username: String, score: Int) {
-        val playerScores = getTopPlayerScores(sharedPreferences, 10).toMutableList()
+        val playerScores = getTopPlayerScores(sharedPreferences, 15).toMutableList()
         playerScores.add(PlayerScore(username, score))
         savePlayerScores(sharedPreferences, playerScores)
     }
